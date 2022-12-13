@@ -1,9 +1,12 @@
 package com.example.springsecurityapplication.controllers;
 
 import com.example.springsecurityapplication.models.Image;
+import com.example.springsecurityapplication.models.Orders;
 import com.example.springsecurityapplication.models.Product;
 import com.example.springsecurityapplication.repositories.CategoryRepository;
+import com.example.springsecurityapplication.repositories.OrderRepository;
 import com.example.springsecurityapplication.security.PersonDetails;
+import com.example.springsecurityapplication.services.OrderService;
 import com.example.springsecurityapplication.services.ProductService;
 import com.example.springsecurityapplication.util.ProductValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Controller
@@ -26,16 +31,20 @@ import java.util.UUID;
 public class AdminController {
     @Value("${upload.path}")
     private String uploadPath;
+    private final OrderRepository orderRepository;
 
     private final ProductValidator productValidator;
     private final ProductService productService;
+    private final OrderService orderService;
 
     private final CategoryRepository categoryRepository;
 
     @Autowired
-    public AdminController(ProductValidator productValidator, ProductService productService, CategoryRepository categoryRepository) {
+    public AdminController(OrderRepository orderRepository, ProductValidator productValidator, ProductService productService, OrderService orderService, CategoryRepository categoryRepository) {
+        this.orderRepository = orderRepository;
         this.productValidator = productValidator;
         this.productService = productService;
+        this.orderService = orderService;
         this.categoryRepository = categoryRepository;
     }
 
@@ -49,6 +58,27 @@ public class AdminController {
         }
         model.addAttribute("products", productService.getAllProduct());
         return "admin/admin";
+    }
+
+    @GetMapping("/user_orders")
+    public String userOrders(Model model){
+        List<Orders> ordersList = orderRepository.findAll();
+        model.addAttribute("user_orders", ordersList);;
+        return "admin/user_orders";
+    }
+
+    @GetMapping("/user_orders/{id}")
+    public String userOrders(Model model, @PathVariable("id") int id){
+        model.addAttribute("user_order", orderService.getOrderId(id));
+        return "admin/user_order_info";
+    }
+
+    @PostMapping("/user_orders/search")
+    public String searchUserOrder(@RequestParam("search") String search,
+                                  Model model){
+        model.addAttribute("value_search", search);
+        model.addAttribute("search_order", orderRepository.findByTitle(search));
+        return "admin/user_orders";
     }
 
     @GetMapping("/product/add")
@@ -65,21 +95,13 @@ public class AdminController {
         if(bindingResult.hasErrors()){
             return "product/addProduct";
         }
-        // Проверка на пустоту файла
         if(file_one != null){
-            // Дирректория по сохранению файла
             File uploadDir = new File(uploadPath);
-            // Если данной дирректории по пути не сущетсвует
             if(!uploadDir.exists()){
-                // Создаем данную дирректорию
                 uploadDir.mkdir();
             }
-            // Создаем уникальное имя файла
-            // UUID представляет неищменный универсальный уникальный идентификатор
             String uuidFile = UUID.randomUUID().toString();
-            // file_one.getOriginalFilename() - наименование файла с формы
             String resultFileName = uuidFile + "." + file_one.getOriginalFilename();
-            // Загружаем файл по указаннопу пути
             file_one.transferTo(new File(uploadPath + "/" + resultFileName));
             Image image = new Image();
             image.setProduct(product);
@@ -87,21 +109,13 @@ public class AdminController {
             product.addImageProduct(image);
         }
 
-        // Проверка на пустоту файла
         if(file_two != null){
-            // Дирректория по сохранению файла
             File uploadDir = new File(uploadPath);
-            // Если данной дирректории по пути не сущетсвует
             if(!uploadDir.exists()){
-                // Создаем данную дирректорию
                 uploadDir.mkdir();
             }
-            // Создаем уникальное имя файла
-            // UUID представляет неищменный универсальный уникальный идентификатор
             String uuidFile = UUID.randomUUID().toString();
-            // file_one.getOriginalFilename() - наименование файла с формы
             String resultFileName = uuidFile + "." + file_two.getOriginalFilename();
-            // Загружаем файл по указаннопу пути
             file_two.transferTo(new File(uploadPath + "/" + resultFileName));
             Image image = new Image();
             image.setProduct(product);
@@ -109,21 +123,13 @@ public class AdminController {
             product.addImageProduct(image);
         }
 
-        // Проверка на пустоту файла
         if(file_three != null){
-            // Дирректория по сохранению файла
             File uploadDir = new File(uploadPath);
-            // Если данной дирректории по пути не сущетсвует
             if(!uploadDir.exists()){
-                // Создаем данную дирректорию
                 uploadDir.mkdir();
             }
-            // Создаем уникальное имя файла
-            // UUID представляет неищменный универсальный уникальный идентификатор
             String uuidFile = UUID.randomUUID().toString();
-            // file_one.getOriginalFilename() - наименование файла с формы
             String resultFileName = uuidFile + "." + file_three.getOriginalFilename();
-            // Загружаем файл по указаннопу пути
             file_three.transferTo(new File(uploadPath + "/" + resultFileName));
             Image image = new Image();
             image.setProduct(product);
@@ -131,21 +137,13 @@ public class AdminController {
             product.addImageProduct(image);
         }
 
-        // Проверка на пустоту файла
         if(file_four != null){
-            // Дирректория по сохранению файла
             File uploadDir = new File(uploadPath);
-            // Если данной дирректории по пути не сущетсвует
             if(!uploadDir.exists()){
-                // Создаем данную дирректорию
                 uploadDir.mkdir();
             }
-            // Создаем уникальное имя файла
-            // UUID представляет неищменный универсальный уникальный идентификатор
             String uuidFile = UUID.randomUUID().toString();
-            // file_one.getOriginalFilename() - наименование файла с формы
             String resultFileName = uuidFile + "." + file_four.getOriginalFilename();
-            // Загружаем файл по указаннопу пути
             file_four.transferTo(new File(uploadPath + "/" + resultFileName));
             Image image = new Image();
             image.setProduct(product);
@@ -153,21 +151,13 @@ public class AdminController {
             product.addImageProduct(image);
         }
 
-        // Проверка на пустоту файла
         if(file_five != null){
-            // Дирректория по сохранению файла
             File uploadDir = new File(uploadPath);
-            // Если данной дирректории по пути не сущетсвует
             if(!uploadDir.exists()){
-                // Создаем данную дирректорию
                 uploadDir.mkdir();
             }
-            // Создаем уникальное имя файла
-            // UUID представляет неищменный универсальный уникальный идентификатор
             String uuidFile = UUID.randomUUID().toString();
-            // file_one.getOriginalFilename() - наименование файла с формы
             String resultFileName = uuidFile + "." + file_five.getOriginalFilename();
-            // Загружаем файл по указаннопу пути
             file_five.transferTo(new File(uploadPath + "/" + resultFileName));
             Image image = new Image();
             image.setProduct(product);

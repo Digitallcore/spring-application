@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3>Заказы пользователей</h3>
+<form th:method="POST" th:action="@{/admin/user_orders/search}">
+    <label for="search">Введите последние 4 цифры/буквы заказа: </label>
+    <input type="search" name="search"  th:value="*{value_search}" id="search">
+    <input type="submit" value="Найти">
+</form>
+<h3>Результаты поиска</h3>
+<div th:each="order : ${search_order}">
+    <a th:text="'Заказ №' + ${order.getNumber()}" th:href="@{/admin/user_orders/{id}(id=${order.getId()})}"></a>
+    <p th:text="${order.getStatus()}"></p>
+    <hr>
+</div>
+<div th:each="order : ${user_orders}">
+    <a th:text="'Заказ №' + ${order.getNumber()}" th:href="@{/admin/user_orders/{id}(id=${order.getId()})}"></a>
+    <p th:text="'Статус: ' + ${order.getStatus()}"></p>
+    <hr>
+</div>
+<a href="/admin">Назад в личный кабинет</a>
+</body>
+</html>
