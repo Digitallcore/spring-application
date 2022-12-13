@@ -6,6 +6,7 @@
 </head>
 <body>
 <h3>Доступные товары</h3>
+<a th:href="@{/auth/login}">Войти в личный кабинет</a>
 <form th:method="POST" th:action="@{/product/search}">
     <fieldset>
         <legend>Выберите параметры для сортировки, поиска, фильтрации</legend>
@@ -15,18 +16,17 @@
         <br>
         <p>Цена, ₽</p>
         <label for="from">От</label>
-        <input type="text" name="from"  th:value="*{value_from}" id="from">
+        <input type="text" name="from" th:value="*{value_from}" id="from">
         <label for="to">До</label>
-        <input type="text" name="to"  th:value="*{value_to}" id="to">
+        <input type="text" name="to" th:value="*{value_to}" id="to">
         <br>
         <br>
-        <input type="radio" id="asc_price" name="price">
+        <input type="radio" id="asc_price" name="price" value="asc_price">
         <label for="asc_price">Отсортировать по возрастанию цены</label>
         <br>
         <br>
-        <input type="radio" id="desc_price" name="price">
+        <input type="radio" id="desc_price" name="price" value="desc_price">
         <label for="desc_price">Отсортировать по убыванию цены</label>
-        <p>Категория товаров: </p>
         <p>Категория товаров: </p>
         <input type="radio" id="furniture" name="category" value="furniture">
         <label for="furniture">Мебель</label>
