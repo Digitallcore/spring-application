@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о пользователях</title>
+</head>
+<body>
+<h3>Список всех пользователей</h3>
+<br>
+<div th:each="user : ${users_info}">
+    <a th:text="${user.getLogin()}" th:href="@{/admin/user_info/{id}(id=${user.getId()})}"></a>
+</div>
+<br>
+<a href="/admin">Вернуться в личный кабинет</a>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование пользователя</title>
+</head>
+<body>
+
+<p th:text="'ID: '+ ${userid_info.getId()}"></p>
+<p th:text="'Логин: ' + ${userid_info.getLogin()}"></p>
+<p th:text="'Роль: ' + ${userid_info.getRole()}"></p>
+<form th:method="POST" th:action="@{/admin/user_info/{id}(id=${userid_info.getId()})}" th:object="${userid_info}">
+    <label for="role">Изменить роль пользователя</label>
+    <select name="role" th:field="*{role}" id="role">
+        <option th:text="'ROLE_USER'" th:value="'ROLE_USER'"></option>
+        <option th:text="'ROLE_ADMIN'" th:value="'ROLE_ADMIN'"></option>
+    </select>
+    <input type="submit" value="Изменить">
+
+    <input hidden th:field="*{login}">
+    <input hidden th:field="*{password}">
+</form>
+<br>
+<a href="/admin">Вернуться в личный кабинет</a>
+</body>
+</html>
