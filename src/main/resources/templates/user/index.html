@@ -3,72 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <title>Главная</title>
+    <link href="/css/mainpage.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<h3>Личный кабинет пользователя</h3>
-<form method="post" th:action="@{/logout}">
-    <input type="submit" value="Выйти из личного кабинета">
-</form>
-<form method="get" th:action="@{/cart}">
-    <input type="submit" value="Корзина">
-</form>
-<form method="get" th:action="@{/orders}">
-    <input type="submit" value="Заказы">
-</form>
-<form th:method="POST" th:action="@{/index/search}">
-    <fieldset>
-        <legend>Выберите параметры для сортировки, поиска, фильтрации</legend>
-        <br>
-        <label for="search">Поиск по наименованию</label>
-        <input type="search" name="search"  th:value="*{value_search}" id="search">
-        <br>
-        <p>Цена, ₽</p>
-        <label for="from">От</label>
-        <input type="text" name="from" th:value="*{value_from}" id="from">
-        <label for="to">До</label>
-        <input type="text" name="to" th:value="*{value_to}" id="to">
-        <br>
-        <br>
-        <input type="radio" id="asc_price" name="price" value="asc_price">
-        <label for="asc_price">Отсортировать по возрастанию цены</label>
-        <br>
-        <br>
-        <input type="radio" id="desc_price" name="price" value="desc_price">
-        <label for="desc_price">Отсортировать по убыванию цены</label>
-        <p>Категория товаров: </p>
-        <input type="radio" id="furniture" name="category" value="furniture">
-        <label for="furniture">Мебель</label>
-        <br>
-        <br>
-        <input type="radio" id="appliances" name="category" value="appliances">
-        <label for=appliances>Бытовая техника</label>
-        <br>
-        <br>
-        <input type="radio" id="clothes" name="category" value="clothes">
-        <label for="clothes">Одежка</label>
-        <br>
-        <br>
-        <input type="submit" value="Найти">
-    </fieldset>
-</form>
-<h3>Результат поиска</h3>
-<div th:each="product : ${search_product}" style="background-color: gray">
-    <img th:src="'/img/'+ ${product.imageList[0].getFileName()}" width="300px">
-    <br>
-    <br>
-    <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
-    <p th:text="'Цена: '+ ${product.getPrice()}"></p>
-    <a th:href="@{/cart/add/{id}(id=${product.getId()})}">Добавить в корзину</a>
-    <hr>
+<div class="header">
+    <div class="flex-container">
+        <p>Личный кабинет пользователя</p>
+    </div>
+    <div class="header_links">
+        <div class="link">
+            <form method="post" th:action="@{/logout}">
+                <input type="submit" value="Выйти">
+            </form>
+        </div>
+        <div class="link">
+            <form method="get" th:action="@{/cart}">
+                <input type="submit" value="Корзина">
+            </form>
+        </div>
+        <div class="link">
+            <form method="get" th:action="@{/orders}">
+                <input type="submit" value="Заказы">
+            </form>
+        </div>
+    </div>
 </div>
-<h3>Доступные товары</h3>
-<div th:each="product : ${products}">
-    <img th:src="'/img/' + ${product.imageList[0].getFileName()}" style="width: 300px">
-    <br>
-    <br>
-    <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}" id="title"></a>
-    <p th:text="'Цена: ' + ${product.getPrice()}"></p>
-    <a th:href="@{/cart/add/{id}(id=${product.getId()})}">Добавить в корзину</a>
+
+<div class="navbar">
+    <div class="form">
+        <div class="form_border">
+        <form th:method="POST" th:action="@{/index/search}">
+                <p>Поиск по наименованию</p>
+                <input type="search" name="search"  th:value="*{value_search}" id="search">
+                <p class="price">Цена, ₽</p>
+                <p>От</p>
+                <input type="text" name="from" th:value="*{value_from}" id="from">
+                <p>До</p>
+                <input type="text" name="to" th:value="*{value_to}" id="to">
+                <input type="radio" id="asc_price" name="price" value="asc_price">
+                <p>Отсортировать по возрастанию цены</p>
+                <input type="radio" id="desc_price" name="price" value="desc_price">
+                <p>Отсортировать по убыванию цены</p>
+                <div class="radio">
+                <p>Категория товаров: </p>
+                <div class="category">
+                <input type="radio" id="furniture" name="category" value="furniture">
+                <p>Мебель</p>
+                </div>
+                <div class="category">
+                <input type="radio" id="appliances" name="category" value="appliances">
+                <p>Бытовая техника</p>
+                </div>
+                <div class="category">
+                <input type="radio" id="clothes" name="category" value="clothes">
+                <p>Одежда</p>
+                </div>
+                </div>
+                <br>
+                <br>
+            <button type="submit">Найти</button>
+            </form>
+        </div>
+</div>
+    <div class="positions">
+        <div th:each="product : ${search_product}" class="product_card_search">
+            <img th:src="'/img/'+ ${product.imageList[0].getFileName()}" width="300px">
+            <br>
+            <br>
+            <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
+            <p th:text="'Цена: '+ ${product.getPrice()}"></p>
+            <a th:href="@{/cart/add/{id}(id=${product.getId()})}">Добавить в корзину</a>
+            <hr>
+        </div>
+        <div th:each="product : ${products}" class="product_card">
+            <img th:src="'/img/' + ${product.imageList[0].getFileName()}">
+            <br>
+            <br>
+            <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}" id="title"></a>
+            <p th:text="'Цена: ' + ${product.getPrice()}"></p>
+            <a th:href="@{/cart/add/{id}(id=${product.getId()})}">Добавить в корзину</a>
+        </div>
+    </div>
 </div>
 </body>
 </html>

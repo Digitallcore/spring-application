@@ -24,6 +24,11 @@ body{
     background-color: #f6da7a;
 }
 
+.form button:hover{
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
 .form input {
     margin-top: 2%;
     margin-bottom: 2%;
@@ -47,19 +52,23 @@ body{
     justify-content: center;
     align-items: center;
     background-color: blanchedalmond;
+    border-radius: 7px;
 }
 
 .flex-container{
     margin-left: auto;
     justify-content: flex-end;
-    flex: 2;
+    flex: 4;
 }
-.flex-container h3{
+.flex-container p{
+    font-size: 18px;
     float: right;
-    margin-right: 25%;
+    margin-right: 35%;
 }
 
 .header_links {
+    display: flex;
+    justify-content: space-evenly;
     margin-left: auto;
     float: right;
     text-decoration: none;
@@ -68,6 +77,8 @@ body{
 }
 
 .header_links a{
+    text-decoration: none;
+    font: 14px "Roboto Thin";
     float: right;
     margin-right: 10%;
 }
@@ -91,7 +102,6 @@ body{
     width: 20%;
     height: auto;
     background-color: #E8D9A9;
-    border: 2px solid gray;
 }
 
 .product_card:hover{
@@ -102,7 +112,7 @@ body{
 .product_card img{
     margin-top: 5%;
     width: 75%;
-    border-radius: 15px;
+    border: 2px solid gray;
 }
 
 .product_card a{
@@ -110,6 +120,9 @@ body{
     display: flex;
     justify-content: center;
     text-align: center;
+    color: black;
+    font: 14px bold;
+    padding-bottom: 5%;
 }
 
 .radio{
@@ -127,7 +140,6 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 2px solid gray;
     border-radius: 15px;
     margin: 2%;
     width: 20%;
@@ -137,8 +149,6 @@ body{
 .product_card_search img{
     margin-top: 5%;
     width: 75%;
-    border-radius: 15px;
-    border: 2px solid gray;
 }
 
 .product_card_search a{
@@ -146,12 +156,29 @@ body{
     display: flex;
     justify-content: center;
     text-align: center;
+    color: black;
+    font: 14px bold Roboto;
+    padding-bottom: 5%;
 }
 
 .product_card_search:hover{
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
+
+.link input{
+    padding: 5% 20% 5% 20%;
+    border-radius: 5px;
+    border: 1px solid gray;
+    background-color: #f6da7a;
+    margin-right: auto;
+}
+
+.link input:hover{
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
 
 
 

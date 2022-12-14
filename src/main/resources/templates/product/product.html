@@ -8,7 +8,7 @@
 <body>
 <div class="header">
     <div class="flex-container">
-        <h3>Доступные товары</h3>
+        <p>Доступные товары</p>
     </div>
     <div class="header_links">
         <a th:href="@{/auth/login}">Войти в личный кабинет</a>
@@ -25,34 +25,28 @@
                 <input type="text" name="from" th:value="*{value_from}" id="from">
                 <p>До</p>
                 <input type="text" name="to" th:value="*{value_to}" id="to">
-            <div class="">
-                <div class="">
-                    <input type="radio" id="asc_price" name="price" value="asc_price">
-                    <p for="asc_price">Отсортировать по возрастанию цены</p>
-                </div>
-                <div class="">
-                    <input type="radio" id="desc_price" name="price" value="desc_price">
-                    <p for="desc_price">Отсортировать по убыванию цены</p>
-                </div>
-            </div>
+                <input type="radio" id="asc_price" name="price" value="asc_price">
+                <p>Отсортировать по возрастанию цены</p>
+                <input type="radio" id="desc_price" name="price" value="desc_price">
+                <p>Отсортировать по убыванию цены</p>
             <div class="radio">
                 <p>Категория товаров: </p>
                 <div class="category">
                 <input type="radio" id="furniture" name="category" value="furniture">
-                <p for="furniture">Мебель</p>
+                <p>Мебель</p>
                 </div>
                 <div class="category">
                 <input type="radio" id="appliances" name="category" value="appliances">
-                <p for=appliances>Бытовая техника</p>
+                <p>Бытовая техника</p>
                 </div>
                 <div class="category">
                 <input type="radio" id="clothes" name="category" value="clothes">
-                <p for="clothes">Одежда</p>
+                <p>Одежда</p>
                 </div>
             </div>
                 <br>
                 <br>
-            <button type="submit">Найти</button>
+                <button type="submit">Найти</button>
         </form>
         </div>
 </div>
@@ -62,14 +56,14 @@
             <br>
             <br>
             <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
-            <p th:text="'Цена: '+ ${product.getPrice()}"></p>
+            <p th:text="'Цена: '+ ${product.getPrice()} + ' ₽'"></p>
         </div>
         <div th:each="product : ${products}" class="product_card">
             <img th:src="'/img/' + ${product.imageList[0].getFileName()}">
             <br>
             <br>
             <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}" id="title"></a>
-            <p th:text="'Цена: ' + ${product.getPrice()}"></p>
+            <p th:text="'Цена: ' + ${product.getPrice()} + ' ₽'"></p>
         </div>
     </div>
 </div>
