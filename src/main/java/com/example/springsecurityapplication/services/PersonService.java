@@ -26,10 +26,21 @@ public class PersonService {
         return person_db.orElse(null);
     }
 
+    public Person getPersonById(int id){
+        Optional<Person> person = personRepository.findById(id);
+        return person.orElse(null);
+    }
+
     @Transactional
     public void register(Person person){
         person.setPassword(passwordEncoder.encode(person.getPassword()));
         person.setRole("ROLE_USER");
+        personRepository.save(person);
+    }
+
+    @Transactional
+    public void changeRole(int id, Person person){
+        person.setId(id);
         personRepository.save(person);
     }
 }

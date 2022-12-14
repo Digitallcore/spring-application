@@ -2,11 +2,14 @@ package com.example.springsecurityapplication.controllers;
 
 import com.example.springsecurityapplication.models.Image;
 import com.example.springsecurityapplication.models.Orders;
+import com.example.springsecurityapplication.models.Person;
 import com.example.springsecurityapplication.models.Product;
 import com.example.springsecurityapplication.repositories.CategoryRepository;
 import com.example.springsecurityapplication.repositories.OrderRepository;
+import com.example.springsecurityapplication.repositories.PersonRepository;
 import com.example.springsecurityapplication.security.PersonDetails;
 import com.example.springsecurityapplication.services.OrderService;
+import com.example.springsecurityapplication.services.PersonService;
 import com.example.springsecurityapplication.services.ProductService;
 import com.example.springsecurityapplication.util.ProductValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,19 +34,22 @@ public class AdminController {
     @Value("${upload.path}")
     private String uploadPath;
     private final OrderRepository orderRepository;
-
+    private final PersonRepository personRepository;
     private final ProductValidator productValidator;
     private final ProductService productService;
     private final OrderService orderService;
+    private final PersonService personService;
 
     private final CategoryRepository categoryRepository;
 
     @Autowired
-    public AdminController(OrderRepository orderRepository, ProductValidator productValidator, ProductService productService, OrderService orderService, CategoryRepository categoryRepository) {
+    public AdminController(OrderRepository orderRepository, PersonRepository personRepository, ProductValidator productValidator, ProductService productService, OrderService orderService, PersonService personService, CategoryRepository categoryRepository) {
         this.orderRepository = orderRepository;
+        this.personRepository = personRepository;
         this.productValidator = productValidator;
         this.productService = productService;
         this.orderService = orderService;
+        this.personService = personService;
         this.categoryRepository = categoryRepository;
     }
 
@@ -57,6 +63,18 @@ public class AdminController {
         }
         model.addAttribute("products", productService.getAllProduct());
         return "admin/admin";
+    }
+
+    @GetMapping("/user_info/{id}")
+    public String userInfoId(@PathVariable("id") int id, Model model){
+        model.addAttribute("userid_info", personService.getPersonById(id));
+        return "admin/user_info_change";
+    }
+
+    @PostMapping("/user_info/{id}")
+    public String changeUserRole(@ModelAttribute("userid_info") Person person, @PathVariable("id") int id){
+        personService.changeRole(id, person);
+        return "admin/user_info";
     }
 
     @GetMapping("/user_orders")
@@ -84,6 +102,13 @@ public class AdminController {
         model.addAttribute("value_search", search);
         model.addAttribute("search_order", orderRepository.findByTitle(search));
         return "admin/user_orders";
+    }
+
+    @GetMapping("/user_info")
+    public String userInfoPage(Model model){
+        List<Person> personList = personRepository.findAll();
+        model.addAttribute("users_info", personList);;
+        return "admin/user_info";
     }
 
     @GetMapping("/product/add")
