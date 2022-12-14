@@ -1,0 +1,158 @@
+body{
+    background: linear-gradient(#9A5044, #E8D9A9) fixed;
+}
+
+.form {
+    margin-top: 1%;
+    padding: 2%;
+    width: auto;
+    height: auto;
+    float: left;
+}
+
+.form p{
+    margin-top: 2%;
+    margin-bottom: 2%;
+    padding: 0;
+    font: 16px italic Roboto;
+}
+
+.form button{
+    padding: 2% 40% 2% 40%;
+    border-radius: 7px;
+    border: 1px solid gray;
+    background-color: #f6da7a;
+}
+
+.form input {
+    margin-top: 2%;
+    margin-bottom: 2%;
+    border-radius: 5px;
+    float: left;
+}
+
+.form input:focus {
+    outline: none;
+    margin-bottom: 2%;
+}
+
+.form_border {
+    background-color: bisque;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 15px;
+}
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: blanchedalmond;
+}
+
+.flex-container{
+    margin-left: auto;
+    justify-content: flex-end;
+    flex: 2;
+}
+.flex-container h3{
+    float: right;
+    margin-right: 25%;
+}
+
+.header_links {
+    margin-left: auto;
+    float: right;
+    text-decoration: none;
+    cursor: pointer;
+    flex: 1;
+}
+
+.header_links a{
+    float: right;
+    margin-right: 10%;
+}
+
+.navbar {
+    display: flex;
+}
+
+.positions {
+    display: flex;
+    flex-flow: row wrap;
+    margin-top: 1%;
+}
+
+.product_card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 15px;
+    margin: 2%;
+    width: 20%;
+    height: auto;
+    background-color: #E8D9A9;
+    border: 2px solid gray;
+}
+
+.product_card:hover{
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.product_card img{
+    margin-top: 5%;
+    width: 75%;
+    border-radius: 15px;
+}
+
+.product_card a{
+   text-decoration: none;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.radio{
+    display: flex;
+    flex-direction: column;
+}
+
+.category {
+    margin: 0;
+    padding: 0;
+}
+
+.product_card_search {
+    background-color: bisque;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid gray;
+    border-radius: 15px;
+    margin: 2%;
+    width: 20%;
+    height: auto;
+}
+
+.product_card_search img{
+    margin-top: 5%;
+    width: 75%;
+    border-radius: 15px;
+    border: 2px solid gray;
+}
+
+.product_card_search a{
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.product_card_search:hover{
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+
+
+
