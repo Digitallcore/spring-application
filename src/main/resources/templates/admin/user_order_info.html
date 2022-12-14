@@ -5,14 +5,29 @@
     <title>Заказ пользователя</title>
 </head>
 <body>
-<h3 th:text="'Заказ №  ' + ${user_order.getNumber()}"></h3>
+<form th:method="POST" th:action="@{/admin/user_orders/{id}(id=${user_order.getId()})}" th:object="${user_order}">
+<h3 th:field="" th:text="'Заказ №  ' + ${user_order.getNumber()}"></h3>
 <p th:text="'ID заказа: ' + ${user_order.getId()}"></p>
 <p th:text="'Пользователь: ' + ${user_order.getPerson().getLogin()}"></p>
 <p th:text="'Наименование: ' + ${user_order.getProduct().getTitle()}"></p>
 <p th:text="'Стоимость заказа: ' + ${user_order.getPrice()}"></p>
 <p th:text="'Статус заказа: ' + ${user_order.getStatus()}"></p>
+<label for="status">Изменить статус заказа: </label>
+<select name="status" th:field="*{status}" id="status">
+  <option th:each="el : ${T(com.example.springsecurityapplication.enums.Status).values()}" th:value="${el}" th:text="${el}"></option>
+</select>
+<input type="submit" value="Изменить">
+
+<input hidden th:field="*{number}" id="number">
+<input hidden th:field="*{price}" id="price">
+<input hidden th:field="*{product}" id="product">
+<input hidden th:field="*{person}" id="person">
+<input hidden th:field="*{dateTime}" id="dateTime">
+<input hidden th:field="*{count}" id="count">
+
 <div th:each="img : ${user_order.getProduct().getImageList()}">
     <img th:src="'/img/'+ ${img.getFileName()}" width="300px">
 </div>
+</form>
 </body>
 </html>

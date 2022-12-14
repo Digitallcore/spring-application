@@ -1,7 +1,6 @@
 package com.example.springsecurityapplication.services;
 
 import com.example.springsecurityapplication.models.Orders;
-import com.example.springsecurityapplication.models.Product;
 import com.example.springsecurityapplication.repositories.OrderRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,5 +19,11 @@ public class OrderService {
     public Orders getOrderId(int id){
         Optional<Orders> optionalProduct = orderRepository.findById(id);
         return optionalProduct.orElse(null);
+    }
+
+    @Transactional
+    public void updateOrder(int id, Orders orders){
+        orders.setId(id);
+        orderRepository.save(orders);
     }
 }

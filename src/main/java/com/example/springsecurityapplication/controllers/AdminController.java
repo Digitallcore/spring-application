@@ -23,7 +23,6 @@ import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Controller
@@ -71,6 +70,12 @@ public class AdminController {
     public String userOrders(Model model, @PathVariable("id") int id){
         model.addAttribute("user_order", orderService.getOrderId(id));
         return "admin/user_order_info";
+    }
+
+    @PostMapping ("/user_orders/{id}")
+    public String editStatus(@ModelAttribute("user_order") Orders orders, @PathVariable("id") int id){
+        orderService.updateOrder(id, orders);
+        return "redirect:/admin/user_orders";
     }
 
     @PostMapping("/user_orders/search")
