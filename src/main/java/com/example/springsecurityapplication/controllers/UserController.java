@@ -6,6 +6,7 @@ import com.example.springsecurityapplication.models.Orders;
 import com.example.springsecurityapplication.models.Product;
 import com.example.springsecurityapplication.repositories.CartRepository;
 import com.example.springsecurityapplication.repositories.OrderRepository;
+import com.example.springsecurityapplication.repositories.ProductRepository;
 import com.example.springsecurityapplication.security.PersonDetails;
 import com.example.springsecurityapplication.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,13 +25,16 @@ import java.util.UUID;
 
 @Controller
 public class UserController {
+    private final ProductRepository productRepository;
     private final CartRepository cartRepository;
     private final ProductService productService;
 
     private final OrderRepository orderRepository;
 
+
     @Autowired
-    public UserController(CartRepository cartRepository, ProductService productService, OrderRepository orderRepository) {
+    public UserController(ProductRepository productRepository, CartRepository cartRepository, ProductService productService, OrderRepository orderRepository) {
+        this.productRepository = productRepository;
         this.cartRepository = cartRepository;
         this.productService = productService;
         this.orderRepository = orderRepository;
@@ -43,6 +49,99 @@ public class UserController {
             return "redirect:/admin";
         }
         model.addAttribute("products", productService.getAllProduct());
+        return "user/index";
+    }
+
+    @PostMapping("/index/search")
+    public String indexSearch(@RequestParam("search") String search, @RequestParam("from") String from,
+                              @RequestParam("to") String to, @RequestParam(value = "price", required = false,
+            defaultValue = "") String price, @RequestParam(value = "category", required = false, defaultValue = "") String category, Model model){
+        if (!from.isEmpty() & !to.isEmpty()){
+            if(!price.isEmpty()){
+                if(price.equals("asc_price")){
+                    if(!category.isEmpty()) {
+                        if (category.equals("furniture")) {
+                            model.addAttribute("search_product", productRepository.findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(from), Float.parseFloat(to), 1));
+                        } else if (category.equals("appliances")) {
+                            model.addAttribute("search_product", productRepository.findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(from), Float.parseFloat(to), 2));
+                        } else if (category.equals("clothes")) {
+                            model.addAttribute("search_product", productRepository.findByTitleAndCategoryOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(from), Float.parseFloat(to), 3));
+                        }
+                    } else {
+                        model.addAttribute("search_product", productRepository.findByTitleOrderByPriceAsc(search.toLowerCase(), Float.parseFloat(from), Float.parseFloat(to)));
+                    }
+                }else if(price.equals("desc_price")){
+                    if(!category.isEmpty()) {
+                        if (category.equals("furniture")) {
+                            model.addAttribute("search_product", productRepository.findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(from), Float.parseFloat(to), 1));
+                        } else if (category.equals("appliances")) {
+                            model.addAttribute("search_product", productRepository.findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(from), Float.parseFloat(to), 2));
+                        } else if (category.equals("clothes")) {
+                            model.addAttribute("search_product", productRepository.findByTitleAndCategoryOrderByPriceDesc(search.toLowerCase(), Float.parseFloat(from), Float.parseFloat(to), 3));
+                        }
+                    } else {
+                        model.addAttribute("search_product", productRepository.findByTitleOrderByPriceDesc(search.toLowerCase(),Float.parseFloat(from), Float.parseFloat(to)));
+                    }
+                }
+            } else {
+                if(!category.isEmpty()) {
+                    if (category.equals("furniture")) {
+                        model.addAttribute("search_product", productRepository.findByTitlePriceCategory(search.toLowerCase(), Float.parseFloat(from), Float.parseFloat(to), 1));
+                    } else if (category.equals("appliances")) {
+                        model.addAttribute("search_product", productRepository.findByTitlePriceCategory(search.toLowerCase(), Float.parseFloat(from), Float.parseFloat(to), 2));
+                    } else if (category.equals("clothes")) {
+                        model.addAttribute("search_product", productRepository.findByTitlePriceCategory(search.toLowerCase(), Float.parseFloat(from), Float.parseFloat(to), 3));
+                    }
+                } else {
+                    model.addAttribute("search_product", productRepository.findByTitleAndPriceGreaterThanEqualAndPriceLessThan(search.toLowerCase(), Float.parseFloat(from), Float.parseFloat(to)));
+                }
+            }
+        } else {
+            if(!price.isEmpty()){
+                if(price.equals("asc_price")){
+                    if(!category.isEmpty()) {
+                        if (category.equals("furniture")) {
+                            model.addAttribute("search_product", productRepository.findByTitleCategoryOrderByPriceAsc(search.toLowerCase(), 1));
+                        } else if (category.equals("appliances")) {
+                            model.addAttribute("search_product", productRepository.findByTitleCategoryOrderByPriceAsc(search.toLowerCase(), 2));
+                        } else if (category.equals("clothes")) {
+                            model.addAttribute("search_product", productRepository.findByTitleCategoryOrderByPriceAsc(search.toLowerCase(), 3));
+                        }
+                    } else {
+                        model.addAttribute("search_product", productRepository.findByTitleOrderByPriceAsc(search.toLowerCase()));
+                    }
+                } else if(price.equals("desc_price")){
+                    if(!category.isEmpty()) {
+                        if (category.equals("furniture")) {
+                            model.addAttribute("search_product", productRepository.findByTitleCategoryOrderByPriceDesc(search.toLowerCase(), 1));
+                        } else if (category.equals("appliances")) {
+                            model.addAttribute("search_product", productRepository.findByTitleCategoryOrderByPriceDesc(search.toLowerCase(), 2));
+                        } else if (category.equals("clothes")) {
+                            model.addAttribute("search_product", productRepository.findByTitleCategoryOrderByPriceDesc(search.toLowerCase(), 3));
+                        }
+                    }else {
+                        model.addAttribute("search_product", productRepository.findByTitleOrderByPriceDesc(search.toLowerCase()));
+                    }
+                }
+            } else {
+                if(!category.isEmpty()){
+                    if (category.equals("furniture")) {
+                        model.addAttribute("search_product", productRepository.findByTitleCategory(search.toLowerCase(), 1));
+                    } else if (category.equals("appliances")) {
+                        model.addAttribute("search_product", productRepository.findByTitleCategory(search.toLowerCase(), 2));
+                    } else if (category.equals("clothes")) {
+                        model.addAttribute("search_product", productRepository.findByTitleCategory(search.toLowerCase(), 3));
+                    }
+                }else{
+                    model.addAttribute("search_product", productRepository.findByTitleContainingIgnoreCase(search));
+                }
+            }
+        }
+        model.addAttribute("value_search", search);
+        model.addAttribute("value_from", from);
+        model.addAttribute("value_to", to);
+        model.addAttribute("products", productService.getAllProduct());
+
         return "user/index";
     }
 
