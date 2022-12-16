@@ -36,14 +36,19 @@ form {
 }
 
 .container {
-    margin-top: 4%;
+    margin-top: 2%;
     display: flex;
+    flex-flow: row wrap;
     justify-content: space-evenly;
     width: 80%;
 }
 
-.img img {
-    width: 80%;
+.img {
+    padding-right: 0.5%;
+}
+.container img{
+    width: 179px;
+    height: 279px;
 }
 
 .img img:hover{

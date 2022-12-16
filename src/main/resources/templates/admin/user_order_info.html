@@ -28,8 +28,8 @@
         <input hidden th:field="*{count}" id="count">
     </form>
     <div class="container">
-        <div th:each="img : ${user_order.getProduct().getImageList()}" class="img">
-            <img th:src="'/img/'+ ${img.getFileName()}" width="300px">
+        <div class="img" th:each="img : ${user_order.getProduct().getImageList()}" >
+            <img th:src="'/img/'+ ${img.getFileName()}">
         </div>
     </div>
 </div>
