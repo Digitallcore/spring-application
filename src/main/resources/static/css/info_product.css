@@ -1,0 +1,31 @@
+body{
+    background: linear-gradient(#9A5044, #E8D9A9) fixed;
+}
+
+.wrapper {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+.container {
+    margin-top: 4%;
+    display: flex;
+    justify-content: space-evenly;
+    width: 80%;
+}
+
+.img img {
+    width: 80%;
+}
+
+.description {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+}
+
+.description p {
+    color: #464541;
+}

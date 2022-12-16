@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Информация о пользователях</title>
+    <link href="/css/user_info.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<h3>Список всех пользователей</h3>
-<br>
-<div th:each="user : ${users_info}">
-    <a th:text="${user.getLogin()}" th:href="@{/admin/user_info/{id}(id=${user.getId()})}"></a>
+<div class="wrapper">
+    <h3>Список всех пользователей</h3>
+    <br>
+    <div th:each="user : ${users_info}" class="links">
+        <a th:text="${user.getLogin()}" th:href="@{/admin/user_info/{id}(id=${user.getId()})}"></a>
+    </div>
+    <br>
+    <a href="/admin">Вернуться в личный кабинет</a>
 </div>
-<br>
-<a href="/admin">Вернуться в личный кабинет</a>
 </body>
 </html>

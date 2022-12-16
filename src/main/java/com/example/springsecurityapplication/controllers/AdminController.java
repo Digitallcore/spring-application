@@ -74,7 +74,7 @@ public class AdminController {
     @PostMapping("/user_info/{id}")
     public String changeUserRole(@ModelAttribute("userid_info") Person person, @PathVariable("id") int id){
         personService.changeRole(id, person);
-        return "admin/user_info";
+        return "admin/success";
     }
 
     @GetMapping("/user_orders")

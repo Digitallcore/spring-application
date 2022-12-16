@@ -1,0 +1,109 @@
+body{
+    background: linear-gradient(#9A5044, #E8D9A9) fixed;
+}
+
+.product_card {
+    margin-bottom: 2%;
+    border-style: solid;
+    border-width: 0 0 1px 0;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+}
+
+.description {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    border-radius: 8px;
+    padding-top: 1%;
+}
+
+.description p {
+    margin: 0.5%;
+    text-align: center;
+}
+
+.description a {
+    margin: 0.5%;
+    padding-bottom: 0.5%;
+    text-align: center;
+}
+.img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    float: left;
+}
+
+.img img{
+    margin-top: 5%;
+    margin-bottom: 5%;
+    width: 80%;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: blanchedalmond;
+    border-radius: 7px;
+    padding-bottom: 0.5%;
+}
+
+.flex-container{
+    display: flex;
+    margin-left: 25%;
+    justify-content: center;
+    flex: 4;
+}
+
+.header_links {
+    display: flex;
+    justify-content: right;
+    margin-left: auto;
+    float: right;
+    text-decoration: none;
+    flex: 2;
+}
+
+.header_links a{
+    text-decoration: none;
+    font: 14px "Roboto Thin";
+    float: right;
+    margin-right: 10%;
+}
+.flex-container p{
+    font-size: 18px;
+    float: right;
+    margin-right: 35%;
+}
+
+.link {
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    padding-right: 4%;
+}
+.link a{
+    text-decoration: none;
+    margin-right: auto;
+    color: black;
+    cursor: pointer;
+    color: goldenrod;
+}
+.link input{
+    font: 14px "Roboto Thin";
+    float: right;
+    padding: 3% 6% 0 0;
+    border-radius: 5px;
+    border: none;
+    background: none;
+    margin-right: auto;
+    cursor: pointer;
+    color: goldenrod;
+}

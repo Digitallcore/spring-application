@@ -3,20 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Корзина</title>
+    <link href="/css/cart.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<h3>Корзина</h3>
-<div th:each="product : ${user_cart}" style="background-color: gray">
-    <img th:src="'/img/'+ ${product.imageList[0].getFileName()}" width="300px">
-    <br>
-    <br>
-    <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
-    <p th:text="'Цена: '+ ${product.getPrice()}"></p>
-    <a th:href="@{/cart/delete/{id}(id=${product.getId()})}">Удалить</a>
-    <hr>
+<div class="header">
+    <div class="flex-container">
+        <h3>Корзина</h3>
+    </div>
+    <div class="header_links">
+        <a href="/index">Вернуться на главную</a>
+    </div>
 </div>
-<h3 th:text="'Итого: ' + ${total_price}"></h3>
-<a href="/order/create">Оформить заказ</a>
-<a href="/index">Вернуться на главную</a>
+<div class="wrapper">
+    <div th:each="product : ${user_cart}" class="product_card">
+        <img th:src="'/img/'+ ${product.imageList[0].getFileName()}">
+        <br>
+        <br>
+        <a class="link" th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
+        <p th:text="'Цена: '+ ${product.getPrice()}"></p>
+        <a th:href="@{/cart/delete/{id}(id=${product.getId()})}">Удалить</a>
+        <hr>
+    </div>
+    <div class="confirm_order">
+        <h3 th:text="'Итого: ' + ${total_price}"></h3>
+        <a href="/order/create">Оформить заказ</a>
+    </div>
+</div>
 </body>
 </html>

@@ -1,0 +1,91 @@
+body{
+    background: linear-gradient(#9A5044, #E8D9A9) fixed;
+}
+
+.product_card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 15px;
+    margin: 2%;
+    width: 20%;
+    height: auto;
+    background-color: #E8D9A9;
+}
+
+.product_card:hover{
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.product_card img{
+    margin-top: 5%;
+    width: 75%;
+    border: 2px solid gray;
+}
+
+.product_card a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 16px;
+    text-decoration: none;
+    padding: 3%;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: blanchedalmond;
+    border-radius: 7px;
+}
+
+.flex-container{
+    display: flex;
+    margin-left: 17%;
+    justify-content: center;
+    flex: 4;
+}
+.flex-container p{
+    font-size: 18px;
+    float: right;
+    margin-right: 35%;
+}
+
+.header_links {
+    display: flex;
+    justify-content: space-evenly;
+    margin-left: auto;
+    float: right;
+    text-decoration: none;
+    cursor: pointer;
+    flex: 1;
+}
+
+.header_links a{
+    text-decoration: none;
+    font: 14px "Roboto Thin";
+    float: right;
+    margin-right: 10%;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+}
+.confirm_order {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: center;
+    font-size: 16px;
+    text-decoration: none;
+    border-radius: 15px;
+    margin: 2%;
+    padding-bottom: 1.5%;
+    width: 10%;
+    height: 10%;
+    background-color: #E8D9A9;
+}

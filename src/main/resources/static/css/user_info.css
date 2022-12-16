@@ -1,0 +1,18 @@
+body{
+    background: linear-gradient(#9A5044, #E8D9A9) fixed;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.links {
+    padding-bottom: 1%;
+}
+
+.links a{
+    color: bisque;
+    text-decoration: none;
+ }
